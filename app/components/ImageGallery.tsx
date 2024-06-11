@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { urlFor } from "../lib/sanity";
 import { useState } from "react";
+import { randomUUID } from "crypto";
 
 interface iAppProps {
   images: any;
@@ -18,7 +19,7 @@ export default function ImageGallery({ images }: iAppProps) {
     <div className="grid gap-4 lg:grid-cols-5">
       <div className="order-last flex gap-4 lg:order-none lg:flex-col">
         {images.map((image: any, idx: any) => (
-          <div key={idx} className="overflow-hidden rounded-lg bg-gray-100">
+          <div key={urlFor(image).url()} className="overflow-hidden rounded-lg bg-gray-100">
             <Image
               src={urlFor(image).url()}
               width={200}
@@ -37,6 +38,7 @@ export default function ImageGallery({ images }: iAppProps) {
           alt="Photo"
           width={500}
           height={500}
+          priority
           className="h-full w-full object-cover object-center"
         />
 
